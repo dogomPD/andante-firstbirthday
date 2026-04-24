@@ -26,27 +26,33 @@
 
     .section {
       width: 100%;
-      min-height: 100vh;
+      height: 100svh;
+      min-height: 100svh;
       scroll-snap-align: start;
       display: flex;
       justify-content: center;
       align-items: center;
       padding: 18px;
+      overflow: hidden;
     }
 
     .invite-bg {
       width: 100%;
       max-width: 520px;
-      min-height: calc(100vh - 36px);
+      height: calc(100svh - 36px);
+      min-height: calc(100svh - 36px);
+
       background-image: url("bg.png");
-      background-size: cover;
+      background-size: 100% 100%;
       background-position: center;
       background-repeat: no-repeat;
+
       border-radius: 20px;
       box-shadow: 0 12px 36px rgba(120, 80, 40, 0.14);
       position: relative;
       overflow: hidden;
       padding: 70px 32px 70px;
+
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -55,14 +61,9 @@
     .content {
       position: relative;
       z-index: 2;
-      width: 100%;
-      margin: 0 auto;
     }
 
-    .crown {
-      font-size: 34px;
-      margin-bottom: 10px;
-    }
+    .crown { font-size: 34px; margin-bottom: 10px; }
 
     .small-title {
       font-size: 18px;
@@ -73,147 +74,71 @@
     h1 {
       font-family: 'Gowun Batang', serif;
       font-size: clamp(46px, 13vw, 66px);
-      line-height: 1.15;
       margin: 8px 0 18px;
       letter-spacing: 5px;
-      color: #4a332b;
     }
 
     h2 {
       font-family: 'Gowun Batang', serif;
       font-size: 32px;
-      margin: 0 0 18px;
-      color: #4a332b;
-    }
-
-    .deco {
-      color: #c99b5b;
-      font-size: 22px;
-      margin: 8px 0 24px;
+      margin-bottom: 18px;
     }
 
     .message {
       font-family: 'Gowun Batang', serif;
       font-size: 17px;
-      line-height: 1.95;
-      margin: 0 auto;
-      max-width: 360px;
-    }
-
-    .heart {
-      font-size: 24px;
-      margin: 24px 0 0;
-    }
-
-    .photo-box {
-      width: 100%;
-      aspect-ratio: 4 / 3;
-      border-radius: 24px;
-      background: rgba(255, 255, 255, 0.72);
-      border: 1px solid #f0ddd0;
-      box-shadow: 0 10px 26px rgba(130, 90, 60, 0.10);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: #a78b7a;
-      overflow: hidden;
-      margin-top: 18px;
-    }
-
-    .photo-box img {
-      width: 100%;
-      height: 100%;
-      object-fit: cover;
+      line-height: 1.9;
     }
 
     .card {
-      background: rgba(255, 255, 255, 0.86);
-      border: 1px solid #f0ddd0;
-      border-radius: 24px;
-      padding: 24px 18px;
-      box-shadow: 0 10px 26px rgba(130, 90, 60, 0.10);
-      width: 100%;
-    }
-
-    .card-sub {
-      margin: 0 0 16px;
-      font-size: 15px;
-      color: #6b5148;
+      background: rgba(255,255,255,0.85);
+      border-radius: 20px;
+      padding: 20px;
     }
 
     .info-row {
       display: flex;
-      align-items: center;
-      gap: 12px;
+      gap: 10px;
+      padding: 10px 0;
+      border-top: 1px dashed #ddd;
       text-align: left;
-      padding: 14px 4px;
-      border-top: 1px dashed #ead8cb;
-      font-size: 16px;
-      line-height: 1.6;
     }
 
-    .icon {
-      width: 32px;
-      flex-shrink: 0;
-      text-align: center;
-      font-size: 22px;
-    }
-
-    .account-text {
-      line-height: 1.8;
-      font-size: 16px;
-      margin-bottom: 12px;
-    }
+    .icon { width: 25px; }
 
     button {
-      padding: 12px 22px;
-      border: none;
+      padding: 10px 18px;
       border-radius: 999px;
+      border: none;
       background: #ffc5ce;
-      color: #4b352e;
-      font-family: 'Gowun Dodum', sans-serif;
-      font-size: 15px;
       cursor: pointer;
-      box-shadow: 0 6px 14px rgba(220, 120, 140, 0.18);
+      margin-top: 10px;
     }
 
     .hint {
       position: absolute;
+      bottom: 25px;
       left: 0;
       right: 0;
-      bottom: 24px;
-      font-size: 13px;
+      font-size: 14px;
       color: #9c7a67;
       animation: bounce 1.5s infinite;
       cursor: pointer;
-      z-index: 5;
-      user-select: none;
     }
 
     @keyframes bounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(6px); }
+      0%,100% { transform: translateY(0);}
+      50% { transform: translateY(6px);}
     }
 
-    @media (max-width: 480px) {
-      .section {
-        padding: 0;
-      }
+    @media (max-width:480px) {
+      .section { padding:0; }
 
       .invite-bg {
-        max-width: none;
-        min-height: 100vh;
-        border-radius: 0;
-        box-shadow: none;
-        padding: 64px 26px 74px;
-      }
-
-      .message {
-        font-size: 16px;
-      }
-
-      .info-row {
-        font-size: 15px;
+        max-width:none;
+        height:100svh;
+        border-radius:0;
+        padding:60px 20px;
       }
     }
   </style>
@@ -221,107 +146,70 @@
 
 <body>
 
-  <section class="section" id="section1">
-    <div class="invite-bg">
-      <div class="content">
-        <div class="crown">👑</div>
-        <div class="small-title">안단테의 첫 번째 생일</div>
-        <h1>초대합니다</h1>
-        <div class="deco">━ ❦ ━</div>
+<section class="section" id="section1">
+  <div class="invite-bg">
+    <div class="content">
+      <div class="crown">👑</div>
+      <div class="small-title">안단테의 첫 번째 생일</div>
+      <h1>초대합니다</h1>
 
-        <p class="message">
-          안단테가 태어나 처음 맞이하는 생일,<br>
-          소중한 분들과 함께<br>
-          따뜻하게 축하하고 싶습니다.<br>
-          귀한 발걸음으로 자리를 빛내주세요.
-        </p>
-
-        <div class="heart">🤍</div>
-      </div>
-      <div class="hint" onclick="goToSection(2)">아래 더보기! ˅</div>
+      <p class="message">
+        안단테의 첫 생일에<br>
+        여러분을 초대합니다.
+      </p>
     </div>
-  </section>
+    <div class="hint" onclick="goToSection(2)">아래 더 보기! 👇</div>
+  </div>
+</section>
 
-  <section class="section" id="section2">
-    <div class="invite-bg">
-      <div class="content">
-        <h2>우리 아기의 첫 번째 생일</h2>
-        <p class="message">
-          사랑스러운 안단테의 순간들을<br>
-          함께 나누고 싶어요.
-        </p>
-
-        <div class="photo-box">
-          <span>아기 사진이 들어갈 자리</span>
-          <!-- 나중에 사진 넣을 때 아래처럼 변경 -->
-          <!-- <img src="photo1.jpg" alt="안단테 사진"> -->
-        </div>
-      </div>
-      <div class="hint" onclick="goToSection(3)">아래 더보기! ˅</div>
-    </div>
-  </section>
-
-  <section class="section" id="section3">
-    <div class="invite-bg">
-      <div class="content">
-        <div class="card">
-          <h2>📍 오시는 길</h2>
-          <p class="card-sub">안단테 첫 생일 잔치</p>
-
-          <div class="info-row">
-            <div class="icon">📅</div>
-            <div>2026년 5월 3일 (일)</div>
-          </div>
-
-          <div class="info-row">
-            <div class="icon">⏰</div>
-            <div>오전 11시</div>
-          </div>
-
-          <div class="info-row">
-            <div class="icon">📍</div>
-            <div>경기 화성시 효행구 봉담읍 동화리 555-2<br>카페 플라</div>
-          </div>
-        </div>
-      </div>
-      <div class="hint" onclick="goToSection(4)">아래 더보기! ˅</div>
-    </div>
-  </section>
-
-  <section class="section" id="section4">
-    <div class="invite-bg">
-      <div class="content">
-        <div class="card">
-          <h2>💌 마음 전하기</h2>
-
-          <p class="account-text">
-            카카오뱅크 <strong>3333-07-1591722</strong><br>
-            안규현
-          </p>
-
-          <button onclick="copyAccount()">📋 계좌 복사</button>
-        </div>
-
-        <p class="message" style="margin-top:26px;">
-          안단테의 첫 생일을<br>
-          함께 축하해주셔서 감사합니다 🤍
-        </p>
+<section class="section" id="section2">
+  <div class="invite-bg">
+    <div class="content">
+      <h2>우리 아기의 순간</h2>
+      <div class="card">
+        사진 넣는 영역
       </div>
     </div>
-  </section>
+    <div class="hint" onclick="goToSection(3)">아래 더 보기! 👇</div>
+  </div>
+</section>
+
+<section class="section" id="section3">
+  <div class="invite-bg">
+    <div class="content">
+      <div class="card">
+        <h2>📍 오시는 길</h2>
+
+        <div class="info-row"><div class="icon">📅</div>2026년 5월 3일</div>
+        <div class="info-row"><div class="icon">⏰</div>오전 11시</div>
+        <div class="info-row"><div class="icon">📍</div>카페 플라</div>
+      </div>
+    </div>
+    <div class="hint" onclick="goToSection(4)">아래 더 보기! 👇</div>
+  </div>
+</section>
+
+<section class="section" id="section4">
+  <div class="invite-bg">
+    <div class="content">
+      <div class="card">
+        <h2>💌 마음 전하기</h2>
+        <p>카카오뱅크 3333-07-1591722</p>
+        <button onclick="copyAccount()">계좌 복사</button>
+      </div>
+    </div>
+  </div>
+</section>
 
 <script>
-  function goToSection(num) {
-    document.getElementById("section" + num).scrollIntoView({
-      behavior: "smooth"
-    });
-  }
+function goToSection(num){
+  document.getElementById("section"+num).scrollIntoView({behavior:"smooth"});
+}
 
-  function copyAccount() {
-    const text = "카카오뱅크 3333-07-1591722";
-    navigator.clipboard.writeText(text);
-    alert("계좌번호가 복사되었습니다!");
-  }
+function copyAccount(){
+  navigator.clipboard.writeText("카카오뱅크 3333-07-1591722");
+  alert("복사되었습니다!");
+}
 </script>
 
 </body>

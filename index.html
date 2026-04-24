@@ -302,6 +302,26 @@ button {
 
 <body>
 
+  <audio id="bgm" loop>
+  <source src="bgm.mp3" type="audio/mpeg">
+</audio>
+  
+  <div id="musicToggle" onclick="toggleMusic()"
+     style="
+     position: fixed;
+     top: 20px;
+     right: 20px;
+     z-index: 999;
+     background: rgba(255,255,255,0.8);
+     padding: 8px 12px;
+     border-radius: 999px;
+     font-size: 14px;
+     cursor: pointer;
+     box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+     ">
+  🔊 ON
+</div>
+  
 <div class="floating">
   <span style="left:8%; font-size:22px; animation-duration:9s; animation-delay:0s;">🌸</span>
   <span style="left:22%; font-size:18px; animation-duration:11s; animation-delay:2s;">✨</span>
@@ -521,6 +541,43 @@ function autoSlide() {
 }
 
 setInterval(autoSlide, 2500);
+
+  let bgm = document.getElementById("bgm");
+let isPlaying = false;
+
+// 🎵 볼륨 (여기서 조절)
+bgm.volume = 0.25; // 👉 0.2 ~ 0.4 추천
+
+// 👉 자동 재생 시도 (PC는 거의 됨)
+window.addEventListener("load", () => {
+  bgm.play().then(() => {
+    isPlaying = true;
+  }).catch(() => {
+    // 모바일은 막힘 (정상)
+  });
+});
+
+// 👉 첫 터치 시 재생 (모바일 대응)
+document.addEventListener("click", () => {
+  if (!isPlaying) {
+    bgm.play();
+    isPlaying = true;
+  }
+}, { once: true });
+
+// 👉 버튼 ON/OFF
+function toggleMusic() {
+  const btn = document.getElementById("musicToggle");
+
+  if (bgm.paused) {
+    bgm.play();
+    btn.innerText = "🔊 ON";
+  } else {
+    bgm.pause();
+    btn.innerText = "🔇 OFF";
+  }
+}
+  
 </script>
 
 </body>

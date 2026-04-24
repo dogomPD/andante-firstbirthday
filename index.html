@@ -23,281 +23,140 @@ html, body {
   text-align: center;
 }
 
+/* 🌸 파티클 */
 .floating {
   position: fixed;
   inset: 0;
   pointer-events: none;
-  overflow: hidden;
   z-index: 20;
 }
-
 .floating span {
   position: absolute;
-  top: -12%;
-  opacity: 0.28;
-  animation-name: fall;
-  animation-timing-function: linear;
-  animation-iteration-count: infinite;
+  top: -10%;
+  opacity: 0.3;
+  animation: fall linear infinite;
 }
-
 @keyframes fall {
-  0% { transform: translateY(-10vh) rotate(0deg); }
-  100% { transform: translateY(115vh) rotate(360deg); }
+  to { transform: translateY(110vh) rotate(360deg); }
 }
 
+/* 메인 */
 .app {
   width: 100%;
   height: var(--page-height);
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 10px;
 }
 
 .invite-bg {
   width: 100%;
   max-width: 520px;
   height: calc(var(--page-height) - 20px);
-  background-image: url("bg.png");
-  background-size: contain;
-  background-position: center;
-  background-repeat: no-repeat;
-  background-color: #fff8f1;
-  position: relative;
+  background: url("bg.png") center/contain no-repeat;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
-.content-stage {
+/* 페이지 */
+.stage {
   width: 78%;
-  max-width: 390px;
   position: relative;
-  z-index: 3;
-  min-height: 360px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
 
 .page {
   position: absolute;
   width: 100%;
   opacity: 0;
-  transform: translateY(10px);
-  filter: blur(3px);
+  filter: blur(2px);
   pointer-events: none;
-  transition:
-    opacity 0.36s ease,
-    transform 0.36s ease,
-    filter 0.36s ease;
+  transition: opacity 0.4s ease, filter 0.4s ease;
 }
 
 .page.active {
   opacity: 1;
-  transform: translateY(0);
   filter: blur(0);
   pointer-events: auto;
 }
 
-.crown {
-  font-size: 34px;
-  margin-bottom: 8px;
-}
-
-.small-title {
-  color: #a8743f;
-  font-size: 17px;
-  margin-bottom: 10px;
-  letter-spacing: 1px;
-}
-
+/* 텍스트 */
+.crown { font-size: 34px; }
+.small-title { color: #a8743f; }
 h1 {
-  font-family: 'Gowun Batang', serif;
-  font-size: clamp(42px, 12vw, 62px);
-  margin: 8px 0 14px;
-  letter-spacing: 4px;
-  color: #4a332b;
+  font-family: 'Gowun Batang';
+  font-size: 50px;
 }
-
 h2 {
-  font-family: 'Gowun Batang', serif;
-  font-size: 29px;
-  margin: 0 0 16px;
-  color: #4a332b;
+  font-family: 'Gowun Batang';
 }
-
-.deco {
-  color: #c99b5b;
-  font-size: 20px;
-  margin: 8px 0 20px;
-}
-
 .message {
-  font-family: 'Gowun Batang', serif;
-  font-size: 16.5px;
   line-height: 1.9;
-  margin: 0 auto;
-}
-
-.heart {
-  font-size: 24px;
-  margin-top: 22px;
 }
 
 .card {
-  background: rgba(255, 255, 255, 0.82);
-  border: 1px solid rgba(230, 200, 180, 0.75);
-  border-radius: 24px;
-  padding: 22px 18px;
-  box-shadow: 0 10px 26px rgba(130, 90, 60, 0.10);
-  backdrop-filter: blur(2px);
-}
-
-.card-sub {
-  margin: -4px 0 14px;
-  color: #7a5a4d;
-  font-size: 14.5px;
+  background: rgba(255,255,255,0.85);
+  padding: 20px;
+  border-radius: 20px;
+  margin-top: 15px;
 }
 
 .info-row {
-  display: flex;
-  gap: 10px;
-  text-align: left;
-  padding: 12px 0;
-  border-top: 1px dashed #ead8cb;
-  font-size: 15px;
-  line-height: 1.55;
+  padding: 8px 0;
+  border-top: 1px dashed #ddd;
 }
 
-.icon {
-  width: 28px;
-  flex-shrink: 0;
-  text-align: center;
-}
-
-.photo-box {
-  width: 100%;
-  aspect-ratio: 4 / 3;
-  border-radius: 22px;
-  background: rgba(255,255,255,0.75);
-  border: 1px solid #f0ddd0;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  color: #a78b7a;
-  margin-top: 18px;
-  overflow: hidden;
-}
-
-.photo-box img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
-
-.account-text {
-  line-height: 1.8;
-  font-size: 16px;
-}
-
-button {
-  margin-top: 10px;
-  padding: 11px 20px;
-  border-radius: 999px;
-  border: none;
-  background: #ffc5ce;
-  color: #4b352e;
-  font-family: 'Gowun Dodum', sans-serif;
-  font-size: 15px;
-  cursor: pointer;
-  box-shadow: 0 6px 14px rgba(220, 120, 140, 0.18);
-}
-
-.hint {
+/* 버튼 */
+.next-btn {
   position: absolute;
-  bottom: 54px;
+  bottom: 55px;
   left: 50%;
   transform: translateX(-50%);
-  width: auto;
-  padding: 7px 15px;
+  padding: 10px 18px;
   border-radius: 999px;
-  background: rgba(255, 255, 255, 0.72);
-  color: #9c7a67;
-  font-size: 14px;
-  animation: bounceHint 1.5s infinite;
+  background: rgba(255,255,255,0.75);
   cursor: pointer;
-  z-index: 8;
-  white-space: nowrap;
-  user-select: none;
-  box-shadow: 0 5px 14px rgba(120, 80, 40, 0.08);
+  animation: bounce 1.5s infinite;
 }
 
-@keyframes bounceHint {
-  0%, 100% { transform: translateX(-50%) translateY(0); }
+@keyframes bounce {
   50% { transform: translateX(-50%) translateY(6px); }
 }
 
-.page-indicator {
+/* 인디케이터 */
+.indicator {
   position: fixed;
-  right: 14px;
+  right: 12px;
   top: 50%;
   transform: translateY(-50%);
-  z-index: 30;
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
 }
 
 .dot {
-  width: 7px;
-  height: 7px;
+  width: 6px;
+  height: 6px;
+  background: #ccc;
   border-radius: 50%;
-  background: rgba(156, 122, 103, 0.28);
+  margin: 6px 0;
 }
-
 .dot.active {
-  background: rgba(156, 122, 103, 0.9);
-}
-
-@media (max-width: 480px) {
-  .app { padding: 0; }
-
-  .invite-bg {
-    max-width: none;
-    height: var(--page-height);
-  }
-
-  .content-stage {
-    width: 76%;
-    min-height: 360px;
-  }
-
-  .message { font-size: 15.5px; }
-
-  .card { padding: 20px 16px; }
-
-  .info-row { font-size: 14.5px; }
-
-  .hint { bottom: 46px; }
-
-  .page-indicator { right: 8px; }
+  background: #9c7a67;
 }
 </style>
 </head>
 
 <body>
 
+<!-- 🌸 효과 -->
 <div class="floating">
-  <span style="left:8%; font-size:22px; animation-duration:9s; animation-delay:0s;">🌸</span>
-  <span style="left:22%; font-size:18px; animation-duration:11s; animation-delay:2s;">✨</span>
-  <span style="left:38%; font-size:21px; animation-duration:10s; animation-delay:1s;">🎀</span>
-  <span style="left:54%; font-size:18px; animation-duration:8s; animation-delay:3s;">✨</span>
-  <span style="left:70%; font-size:23px; animation-duration:12s; animation-delay:1.5s;">🌸</span>
-  <span style="left:86%; font-size:19px; animation-duration:9.5s; animation-delay:2.5s;">🤍</span>
+  <span style="left:10%; animation-duration:8s;">🌸</span>
+  <span style="left:30%; animation-duration:9s;">✨</span>
+  <span style="left:60%; animation-duration:7s;">🎀</span>
+  <span style="left:80%; animation-duration:10s;">🌸</span>
 </div>
 
-<div class="page-indicator">
+<!-- 인디케이터 -->
+<div class="indicator">
   <div class="dot active"></div>
   <div class="dot"></div>
   <div class="dot"></div>
@@ -307,165 +166,82 @@ button {
 <main class="app">
   <div class="invite-bg">
 
-    <div class="content-stage">
+    <div class="stage">
 
-      <section class="page active">
+      <!-- 1 -->
+      <div class="page active">
         <div class="crown">👑</div>
         <div class="small-title">안단테의 첫 번째 생일</div>
         <h1>초대합니다</h1>
-        <div class="deco">━ ❦ ━</div>
 
         <p class="message">
           안단테가 태어나 처음 맞이하는 생일,<br>
-          소중한 분들과 함께<br>
-          따뜻하게 축하하고 싶습니다.<br>
-          귀한 발걸음으로 자리를 빛내주세요.
+          함께 축하해주세요
         </p>
+      </div>
 
-        <div class="heart">🤍</div>
-      </section>
-
-      <section class="page">
+      <!-- 2 -->
+      <div class="page">
         <h2>우리 아기의 순간</h2>
+        <div class="card">사진 영역</div>
+      </div>
 
-        <p class="message">
-          사랑스러운 안단테의 모습을<br>
-          함께 나누고 싶어요.
-        </p>
-
-        <div class="photo-box">
-          <span>아기 사진이 들어갈 자리</span>
-        </div>
-      </section>
-
-      <section class="page">
+      <!-- 3 -->
+      <div class="page">
         <div class="card">
           <h2>📍 오시는 길</h2>
-          <p class="card-sub">안단테 첫 생일 잔치</p>
-
-          <div class="info-row">
-            <div class="icon">📅</div>
-            <div>2026년 5월 3일 (일)</div>
-          </div>
-
-          <div class="info-row">
-            <div class="icon">⏰</div>
-            <div>오전 11시</div>
-          </div>
-
-          <div class="info-row">
-            <div class="icon">📍</div>
-            <div>경기 화성시 효행구 봉담읍 동화리 555-2<br>카페 플라</div>
-          </div>
+          <div class="info-row">📅 2026.05.03</div>
+          <div class="info-row">⏰ 오전 11시</div>
+          <div class="info-row">📍 카페 플라</div>
         </div>
-      </section>
+      </div>
 
-      <section class="page">
+      <!-- 4 -->
+      <div class="page">
         <div class="card">
           <h2>💌 마음 전하기</h2>
-
-          <p class="account-text">
-            카카오뱅크 <strong>3333-07-1591722</strong><br>
-            안규현
-          </p>
-
-          <button onclick="copyAccount()">📋 계좌 복사</button>
+          <p>카카오뱅크 3333-07-1591722</p>
+          <button onclick="copyAccount()">복사</button>
         </div>
-
-        <p class="message" style="margin-top:24px;">
-          안단테의 첫 생일을<br>
-          함께 축하해주셔서 감사합니다 🤍
-        </p>
-      </section>
+      </div>
 
     </div>
 
-    <div class="hint" id="nextHint" onclick="goToPage(currentPage + 1)">아래 더 보기! 👇</div>
+    <div class="next-btn" onclick="nextPage()">다음 페이지</div>
 
   </div>
 </main>
 
 <script>
-let currentPage = 1;
-const totalPages = 4;
-let isChanging = false;
-let touchStartY = 0;
+let current = 0;
+const pages = document.querySelectorAll('.page');
+const dots = document.querySelectorAll('.dot');
 
-function setPageHeight() {
-  const height = window.innerHeight;
-  document.documentElement.style.setProperty('--page-height', height + 'px');
+function showPage(i){
+  pages[current].classList.remove('active');
+  pages[i].classList.add('active');
+
+  dots[current].classList.remove('active');
+  dots[i].classList.add('active');
+
+  current = i;
 }
 
-setPageHeight();
-
-window.addEventListener('orientationchange', function () {
-  setTimeout(setPageHeight, 300);
-});
-
-function goToPage(num) {
-  if (num < 1 || num > totalPages || num === currentPage || isChanging) return;
-
-  isChanging = true;
-
-  const pages = document.querySelectorAll('.page');
-  const dots = document.querySelectorAll('.dot');
-
-  pages[currentPage - 1].classList.remove('active');
-
-  setTimeout(() => {
-    pages[num - 1].classList.add('active');
-
-    dots.forEach((dot, index) => {
-      dot.classList.toggle('active', index + 1 === num);
-    });
-
-    currentPage = num;
-
-    const hint = document.getElementById('nextHint');
-    hint.style.display = currentPage === totalPages ? 'none' : 'block';
-
-    setTimeout(() => {
-      isChanging = false;
-    }, 380);
-  }, 360);
+function nextPage(){
+  if(current < pages.length - 1){
+    showPage(current + 1);
+  }
 }
 
-window.addEventListener('wheel', function(e) {
-  e.preventDefault();
-  if (isChanging) return;
-
-  if (e.deltaY > 20) {
-    goToPage(currentPage + 1);
-  } else if (e.deltaY < -20) {
-    goToPage(currentPage - 1);
-  }
-}, { passive: false });
-
-window.addEventListener('touchstart', function(e) {
-  touchStartY = e.touches[0].clientY;
-}, { passive: true });
-
-window.addEventListener('touchmove', function(e) {
-  e.preventDefault();
-}, { passive: false });
-
-window.addEventListener('touchend', function(e) {
-  if (isChanging) return;
-
-  const touchEndY = e.changedTouches[0].clientY;
-  const diff = touchStartY - touchEndY;
-
-  if (diff > 45) {
-    goToPage(currentPage + 1);
-  } else if (diff < -45) {
-    goToPage(currentPage - 1);
-  }
-}, { passive: true });
-
-function copyAccount() {
+function copyAccount(){
   navigator.clipboard.writeText("카카오뱅크 3333-07-1591722");
-  alert("계좌번호가 복사되었습니다!");
+  alert("복사됨");
 }
+
+/* 스크롤도 지원 */
+window.addEventListener('wheel', e=>{
+  if(e.deltaY > 0) nextPage();
+});
 </script>
 
 </body>

@@ -14,22 +14,17 @@
   --page-height: 100vh;
 }
 
-html {
-  height: 100%;
-  scroll-snap-type: y mandatory;
-  scroll-behavior: smooth;
-}
-
-body {
+html, body {
   margin: 0;
+  width: 100%;
+  height: var(--page-height);
+  overflow: hidden;
   font-family: 'Gowun Dodum', sans-serif;
   background: #fff8f1;
   color: #4b352e;
   text-align: center;
-  overflow-x: hidden;
 }
 
-/* 꽃잎/리본/반짝이 효과 */
 .floating {
   position: fixed;
   inset: 0;
@@ -53,15 +48,27 @@ body {
 }
 
 .section {
+  position: fixed;
+  inset: 0;
   width: 100%;
   height: var(--page-height);
-  scroll-snap-align: start;
-  scroll-snap-stop: always;
   display: flex;
   justify-content: center;
   align-items: center;
   padding: 10px;
-  overflow: hidden;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(18px);
+  transition: opacity 0.55s ease, transform 0.55s ease, visibility 0.55s;
+  pointer-events: none;
+}
+
+.section.active {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  pointer-events: auto;
+  z-index: 5;
 }
 
 .invite-bg {
@@ -200,7 +207,6 @@ button {
   box-shadow: 0 6px 14px rgba(220, 120, 140, 0.18);
 }
 
-/* 초대장 안쪽 하단에 고정되는 아래 더 보기 */
 .hint {
   position: absolute;
   bottom: 54px;
@@ -223,6 +229,28 @@ button {
 @keyframes bounceHint {
   0%, 100% { transform: translateX(-50%) translateY(0); }
   50% { transform: translateX(-50%) translateY(6px); }
+}
+
+.page-indicator {
+  position: fixed;
+  right: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 30;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(156, 122, 103, 0.28);
+}
+
+.dot.active {
+  background: rgba(156, 122, 103, 0.9);
 }
 
 @media (max-width: 480px) {
@@ -254,6 +282,10 @@ button {
   .hint {
     bottom: 46px;
   }
+
+  .page-indicator {
+    right: 8px;
+  }
 }
 </style>
 </head>
@@ -269,7 +301,14 @@ button {
   <span style="left:86%; font-size:19px; animation-duration:9.5s; animation-delay:2.5s;">🤍</span>
 </div>
 
-<section class="section" id="section1">
+<div class="page-indicator">
+  <div class="dot active"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+  <div class="dot"></div>
+</div>
+
+<section class="section active" id="section1">
   <div class="invite-bg">
     <div class="content">
       <div class="crown">👑</div>
@@ -362,6 +401,11 @@ button {
 </section>
 
 <script>
+let currentPage = 1;
+const totalPages = 4;
+let isChanging = false;
+let touchStartY = 0;
+
 function setPageHeight() {
   const height = window.innerHeight;
   document.documentElement.style.setProperty('--page-height', height + 'px');
@@ -374,11 +418,57 @@ window.addEventListener('orientationchange', function () {
 });
 
 function goToSection(num) {
-  document.getElementById("section" + num).scrollIntoView({
-    behavior: "smooth",
-    block: "start"
+  if (num < 1 || num > totalPages || num === currentPage || isChanging) return;
+
+  isChanging = true;
+
+  document.querySelectorAll('.section').forEach((section, index) => {
+    section.classList.toggle('active', index + 1 === num);
   });
+
+  document.querySelectorAll('.dot').forEach((dot, index) => {
+    dot.classList.toggle('active', index + 1 === num);
+  });
+
+  currentPage = num;
+
+  setTimeout(() => {
+    isChanging = false;
+  }, 650);
 }
+
+window.addEventListener('wheel', function(e) {
+  e.preventDefault();
+
+  if (isChanging) return;
+
+  if (e.deltaY > 20) {
+    goToSection(currentPage + 1);
+  } else if (e.deltaY < -20) {
+    goToSection(currentPage - 1);
+  }
+}, { passive: false });
+
+window.addEventListener('touchstart', function(e) {
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+window.addEventListener('touchmove', function(e) {
+  e.preventDefault();
+}, { passive: false });
+
+window.addEventListener('touchend', function(e) {
+  if (isChanging) return;
+
+  const touchEndY = e.changedTouches[0].clientY;
+  const diff = touchStartY - touchEndY;
+
+  if (diff > 45) {
+    goToSection(currentPage + 1);
+  } else if (diff < -45) {
+    goToSection(currentPage - 1);
+  }
+}, { passive: true });
 
 function copyAccount() {
   navigator.clipboard.writeText("카카오뱅크 3333-07-1591722");

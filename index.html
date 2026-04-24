@@ -10,6 +10,10 @@
   <style>
     * { box-sizing: border-box; }
 
+    :root {
+      --page-height: 100vh;
+    }
+
     html {
       scroll-snap-type: y mandatory;
       scroll-behavior: smooth;
@@ -26,8 +30,7 @@
 
     .section {
       width: 100%;
-      height: 100svh;
-      min-height: 100svh;
+      height: var(--page-height);
       scroll-snap-align: start;
       display: flex;
       justify-content: center;
@@ -39,20 +42,16 @@
     .invite-bg {
       width: 100%;
       max-width: 520px;
-      height: calc(100svh - 36px);
-      min-height: calc(100svh - 36px);
-
+      height: calc(var(--page-height) - 36px);
       background-image: url("bg.png");
       background-size: 100% 100%;
       background-position: center;
       background-repeat: no-repeat;
-
       border-radius: 20px;
       box-shadow: 0 12px 36px rgba(120, 80, 40, 0.14);
       position: relative;
       overflow: hidden;
-      padding: 70px 32px 70px;
-
+      padding: 70px 32px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -63,7 +62,10 @@
       z-index: 2;
     }
 
-    .crown { font-size: 34px; margin-bottom: 10px; }
+    .crown {
+      font-size: 34px;
+      margin-bottom: 10px;
+    }
 
     .small-title {
       font-size: 18px;
@@ -91,28 +93,37 @@
     }
 
     .card {
-      background: rgba(255,255,255,0.85);
-      border-radius: 20px;
-      padding: 20px;
+      background: rgba(255,255,255,0.86);
+      border: 1px solid #f0ddd0;
+      border-radius: 22px;
+      padding: 22px 18px;
+      box-shadow: 0 10px 26px rgba(130, 90, 60, 0.10);
     }
 
     .info-row {
       display: flex;
-      gap: 10px;
-      padding: 10px 0;
-      border-top: 1px dashed #ddd;
+      gap: 12px;
+      padding: 12px 0;
+      border-top: 1px dashed #ead8cb;
       text-align: left;
+      line-height: 1.6;
+      font-size: 15px;
     }
 
-    .icon { width: 25px; }
+    .icon {
+      width: 28px;
+      flex-shrink: 0;
+      text-align: center;
+    }
 
     button {
-      padding: 10px 18px;
+      padding: 11px 18px;
       border-radius: 999px;
       border: none;
       background: #ffc5ce;
       cursor: pointer;
       margin-top: 10px;
+      font-family: 'Gowun Dodum', sans-serif;
     }
 
     .hint {
@@ -124,21 +135,27 @@
       color: #9c7a67;
       animation: bounce 1.5s infinite;
       cursor: pointer;
+      z-index: 5;
+      user-select: none;
     }
 
     @keyframes bounce {
-      0%,100% { transform: translateY(0);}
-      50% { transform: translateY(6px);}
+      0%,100% { transform: translateY(0); }
+      50% { transform: translateY(6px); }
     }
 
     @media (max-width:480px) {
-      .section { padding:0; }
+      .section {
+        padding: 0;
+      }
 
       .invite-bg {
-        max-width:none;
-        height:100svh;
-        border-radius:0;
-        padding:60px 20px;
+        max-width: none;
+        width: 100%;
+        height: var(--page-height);
+        border-radius: 0;
+        box-shadow: none;
+        padding: 60px 24px 72px;
       }
     }
   </style>
@@ -152,10 +169,11 @@
       <div class="crown">👑</div>
       <div class="small-title">안단테의 첫 번째 생일</div>
       <h1>초대합니다</h1>
-
       <p class="message">
-        안단테의 첫 생일에<br>
-        여러분을 초대합니다.
+        안단테가 태어나 처음 맞이하는 생일,<br>
+        소중한 분들과 함께<br>
+        따뜻하게 축하하고 싶습니다.<br>
+        귀한 발걸음으로 자리를 빛내주세요.
       </p>
     </div>
     <div class="hint" onclick="goToSection(2)">아래 더 보기! 👇</div>
@@ -167,7 +185,7 @@
     <div class="content">
       <h2>우리 아기의 순간</h2>
       <div class="card">
-        사진 넣는 영역
+        아기 사진이 들어갈 자리
       </div>
     </div>
     <div class="hint" onclick="goToSection(3)">아래 더 보기! 👇</div>
@@ -180,9 +198,9 @@
       <div class="card">
         <h2>📍 오시는 길</h2>
 
-        <div class="info-row"><div class="icon">📅</div>2026년 5월 3일</div>
-        <div class="info-row"><div class="icon">⏰</div>오전 11시</div>
-        <div class="info-row"><div class="icon">📍</div>카페 플라</div>
+        <div class="info-row"><div class="icon">📅</div><div>2026년 5월 3일 (일)</div></div>
+        <div class="info-row"><div class="icon">⏰</div><div>오전 11시</div></div>
+        <div class="info-row"><div class="icon">📍</div><div>경기 화성시 효행구 봉담읍 동화리 555-2<br>카페 플라</div></div>
       </div>
     </div>
     <div class="hint" onclick="goToSection(4)">아래 더 보기! 👇</div>
@@ -194,22 +212,41 @@
     <div class="content">
       <div class="card">
         <h2>💌 마음 전하기</h2>
-        <p>카카오뱅크 3333-07-1591722</p>
-        <button onclick="copyAccount()">계좌 복사</button>
+        <p>
+          카카오뱅크 <strong>3333-07-1591722</strong><br>
+          안규현
+        </p>
+        <button onclick="copyAccount()">📋 계좌 복사</button>
       </div>
+
+      <p class="message" style="margin-top:24px;">
+        안단테의 첫 생일을<br>
+        함께 축하해주셔서 감사합니다 🤍
+      </p>
     </div>
   </div>
 </section>
 
 <script>
-function goToSection(num){
-  document.getElementById("section"+num).scrollIntoView({behavior:"smooth"});
-}
+  function setPageHeight() {
+    const height = window.innerHeight;
+    document.documentElement.style.setProperty('--page-height', height + 'px');
+  }
 
-function copyAccount(){
-  navigator.clipboard.writeText("카카오뱅크 3333-07-1591722");
-  alert("복사되었습니다!");
-}
+  setPageHeight();
+
+  window.addEventListener('orientationchange', function () {
+    setTimeout(setPageHeight, 300);
+  });
+
+  function goToSection(num){
+    document.getElementById("section" + num).scrollIntoView({ behavior: "smooth" });
+  }
+
+  function copyAccount(){
+    navigator.clipboard.writeText("카카오뱅크 3333-07-1591722");
+    alert("계좌번호가 복사되었습니다!");
+  }
 </script>
 
 </body>

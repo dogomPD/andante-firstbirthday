@@ -497,10 +497,15 @@ updateNav();
 const totalSlides = 12;
 
 function autoSlide() {
+  // 👉 사진 페이지(2번 페이지) 아닐 때는 멈춤
+  if (currentPage !== 2) return;
+
   slideIndex++;
   if (slideIndex > totalSlides) slideIndex = 1;
 
   const img = document.getElementById("slider");
+
+  if (!img) return;
 
   img.style.opacity = 0;
 

@@ -498,22 +498,26 @@ updateNav();
 const totalSlides = 12;
 
 function autoSlide() {
-  // 👉 사진 페이지(2번 페이지) 아닐 때는 멈춤
   if (currentPage !== 2) return;
 
   slideIndex++;
   if (slideIndex > totalSlides) slideIndex = 1;
 
   const img = document.getElementById("slider");
-
   if (!img) return;
 
-  img.style.opacity = 0;
+  // 새 이미지 미리 로드
+  const newImg = new Image();
+  newImg.src = slideIndex + ".png";
 
-  setTimeout(() => {
-    img.src = slideIndex + ".png";
-    img.style.opacity = 1;
-  }, 300);
+  newImg.onload = () => {
+    img.style.opacity = 0;
+
+    setTimeout(() => {
+      img.src = newImg.src;
+      img.style.opacity = 1;
+    }, 200);
+  };
 }
 
 setInterval(autoSlide, 2500);

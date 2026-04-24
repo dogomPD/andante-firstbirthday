@@ -195,7 +195,7 @@ h2 {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: opacity 0.5s ease;
+  transition: opacity 1.2s ease;
   border-radius: 16px;
 }
 
@@ -536,11 +536,11 @@ function autoSlide() {
     setTimeout(() => {
       img.src = newImg.src;
       img.style.opacity = 1;
-    }, 200);
+    }, 800);
   };
 }
 
-setInterval(autoSlide, 2500);
+setInterval(autoSlide, 3500);
 
   let bgm = document.getElementById("bgm");
 let isMusicPlaying = false;

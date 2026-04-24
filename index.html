@@ -10,9 +10,7 @@
 <style>
 * { box-sizing: border-box; }
 
-:root {
-  --page-height: 100vh;
-}
+:root { --page-height: 100vh; }
 
 html, body {
   margin: 0;
@@ -58,15 +56,12 @@ html, body {
   padding: 10px;
   opacity: 0;
   visibility: hidden;
-  transform: translateY(18px);
-  transition: opacity 0.55s ease, transform 0.55s ease, visibility 0.55s;
   pointer-events: none;
 }
 
 .section.active {
   opacity: 1;
   visibility: visible;
-  transform: translateY(0);
   pointer-events: auto;
   z-index: 5;
 }
@@ -253,44 +248,47 @@ button {
   background: rgba(156, 122, 103, 0.9);
 }
 
+/* 화이트 전환막 */
+.white-fade {
+  position: fixed;
+  inset: 0;
+  background: #fffdf9;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 9999;
+  transition: opacity 0.28s ease;
+}
+
+.white-fade.show {
+  opacity: 1;
+}
+
 @media (max-width: 480px) {
-  .section {
-    padding: 0;
-  }
+  .section { padding: 0; }
 
   .invite-bg {
     max-width: none;
     height: var(--page-height);
   }
 
-  .content {
-    width: 76%;
-  }
+  .content { width: 76%; }
 
-  .message {
-    font-size: 15.5px;
-  }
+  .message { font-size: 15.5px; }
 
-  .card {
-    padding: 20px 16px;
-  }
+  .card { padding: 20px 16px; }
 
-  .info-row {
-    font-size: 14.5px;
-  }
+  .info-row { font-size: 14.5px; }
 
-  .hint {
-    bottom: 46px;
-  }
+  .hint { bottom: 46px; }
 
-  .page-indicator {
-    right: 8px;
-  }
+  .page-indicator { right: 8px; }
 }
 </style>
 </head>
 
 <body>
+
+<div class="white-fade" id="whiteFade"></div>
 
 <div class="floating">
   <span style="left:8%; font-size:22px; animation-duration:9s; animation-delay:0s;">🌸</span>
@@ -342,7 +340,6 @@ button {
 
       <div class="photo-box">
         <span>아기 사진이 들어갈 자리</span>
-        <!-- 사진 넣을 때: <img src="photo1.jpg" alt="안단테 사진"> -->
       </div>
     </div>
 
@@ -421,20 +418,29 @@ function goToSection(num) {
   if (num < 1 || num > totalPages || num === currentPage || isChanging) return;
 
   isChanging = true;
+  const fade = document.getElementById("whiteFade");
 
-  document.querySelectorAll('.section').forEach((section, index) => {
-    section.classList.toggle('active', index + 1 === num);
-  });
+  fade.classList.add("show");
 
-  document.querySelectorAll('.dot').forEach((dot, index) => {
-    dot.classList.toggle('active', index + 1 === num);
-  });
+  setTimeout(() => {
+    document.querySelectorAll('.section').forEach((section, index) => {
+      section.classList.toggle('active', index + 1 === num);
+    });
 
-  currentPage = num;
+    document.querySelectorAll('.dot').forEach((dot, index) => {
+      dot.classList.toggle('active', index + 1 === num);
+    });
+
+    currentPage = num;
+  }, 280);
+
+  setTimeout(() => {
+    fade.classList.remove("show");
+  }, 430);
 
   setTimeout(() => {
     isChanging = false;
-  }, 650);
+  }, 750);
 }
 
 window.addEventListener('wheel', function(e) {

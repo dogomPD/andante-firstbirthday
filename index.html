@@ -319,7 +319,7 @@ button {
      cursor: pointer;
      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
      ">
-  🔊 ON
+  🔇 OFF
 </div>
   
 <div class="floating">
@@ -543,7 +543,7 @@ function autoSlide() {
 setInterval(autoSlide, 2500);
 
   let bgm = document.getElementById("bgm");
-let isPlaying = false;
+let isMusicPlaying = false;
 
 // 🎵 볼륨 (여기서 조절)
 bgm.volume = 0.25; // 👉 0.2 ~ 0.4 추천
@@ -551,7 +551,7 @@ bgm.volume = 0.25; // 👉 0.2 ~ 0.4 추천
 // 👉 자동 재생 시도 (PC는 거의 됨)
 window.addEventListener("load", () => {
   bgm.play().then(() => {
-    isPlaying = true;
+    isMusicPlaying = true;
   }).catch(() => {
     // 모바일은 막힘 (정상)
   });
@@ -559,9 +559,9 @@ window.addEventListener("load", () => {
 
 // 👉 첫 터치 시 재생 (모바일 대응)
 document.addEventListener("click", () => {
-  if (!isPlaying) {
+  if (!isMusicPlaying) {
     bgm.play();
-    isPlaying = true;
+    isMusicPlaying = true;
   }
 }, { once: true });
 
@@ -571,9 +571,11 @@ function toggleMusic() {
 
   if (bgm.paused) {
     bgm.play();
+    isMusicPlaying = true;
     btn.innerText = "🔊 ON";
   } else {
     bgm.pause();
+    isMusicPlaying = false;
     btn.innerText = "🔇 OFF";
   }
 }

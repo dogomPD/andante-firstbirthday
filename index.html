@@ -8,9 +8,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Gowun+Dodum&family=Gowun+Batang:wght@400;700&display=swap" rel="stylesheet">
 
   <style>
-    * {
-      box-sizing: border-box;
-    }
+    * { box-sizing: border-box; }
 
     html {
       scroll-snap-type: y mandatory;
@@ -187,6 +185,9 @@
       font-size: 13px;
       color: #9c7a67;
       animation: bounce 1.5s infinite;
+      cursor: pointer;
+      z-index: 5;
+      user-select: none;
     }
 
     @keyframes bounce {
@@ -220,8 +221,7 @@
 
 <body>
 
-  <!-- 1페이지: 초대 문구 -->
-  <section class="section">
+  <section class="section" id="section1">
     <div class="invite-bg">
       <div class="content">
         <div class="crown">👑</div>
@@ -238,12 +238,11 @@
 
         <div class="heart">🤍</div>
       </div>
-      <div class="hint">아래로 내려주세요 ˅</div>
+      <div class="hint" onclick="goToSection(2)">아래로 내려주세요 ˅</div>
     </div>
   </section>
 
-  <!-- 2페이지: 사진 -->
-  <section class="section">
+  <section class="section" id="section2">
     <div class="invite-bg">
       <div class="content">
         <h2>우리 아기의 첫 번째 생일</h2>
@@ -254,16 +253,15 @@
 
         <div class="photo-box">
           <span>아기 사진이 들어갈 자리</span>
-          <!-- 사진 넣을 때 아래처럼 변경 -->
+          <!-- 나중에 사진 넣을 때 아래처럼 변경 -->
           <!-- <img src="photo1.jpg" alt="안단테 사진"> -->
         </div>
       </div>
-      <div class="hint">아래로 내려주세요 ˅</div>
+      <div class="hint" onclick="goToSection(3)">아래로 내려주세요 ˅</div>
     </div>
   </section>
 
-  <!-- 3페이지: 오시는 길 -->
-  <section class="section">
+  <section class="section" id="section3">
     <div class="invite-bg">
       <div class="content">
         <div class="card">
@@ -286,12 +284,11 @@
           </div>
         </div>
       </div>
-      <div class="hint">아래로 내려주세요 ˅</div>
+      <div class="hint" onclick="goToSection(4)">아래로 내려주세요 ˅</div>
     </div>
   </section>
 
-  <!-- 4페이지: 마음 전하기 -->
-  <section class="section">
+  <section class="section" id="section4">
     <div class="invite-bg">
       <div class="content">
         <div class="card">
@@ -314,6 +311,12 @@
   </section>
 
 <script>
+  function goToSection(num) {
+    document.getElementById("section" + num).scrollIntoView({
+      behavior: "smooth"
+    });
+  }
+
   function copyAccount() {
     const text = "카카오뱅크 3333-07-1591722";
     navigator.clipboard.writeText(text);
